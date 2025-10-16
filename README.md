@@ -37,7 +37,7 @@ All elements include the required `data-testid` attributes for automated testing
 - **Accessible Design** (Alt text, focus styles, ARIA labels)
 
 ---
-
+Live Url(https://profilee.pxxl.click)
 > The layout adapts fluidly to all screen sizes — mobile, tablet, and desktop.
 
 ---

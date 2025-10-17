@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frontend Wizards – Stage 0 Profile Card</title>
+
+  <style>
+    /* 🌐 Reset & Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: #2d3748;
+    }
+
+    /* 🪄 Profile Card */
+    article[data-testid="test-profile-card"] {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      max-width: 900px;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    article[data-testid="test-profile-card"]:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+    }
+
+    /* 🧭 Layout sections */
+    .card-header {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .avatar-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .avatar {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 5px solid white;
+      object-fit: cover;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    h1[data-testid="test-user-name"] {
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+
+    time[data-testid="test-user-time"] {
+      font-family: monospace;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    /* 📄 Body */
+    .card-body {
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    p[data-testid="test-user-bio"] {
+      font-size: 1.05rem;
+      color: #4a5568;
+      line-height: 1.6;
+    }
+
+    /* 🔗 Social Links */
+    nav[aria-label="Social media links"] ul[data-testid="test-user-social-links"] {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: #fff;
+      background: #667eea;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .social-link:hover,
+    .social-link:focus {
+      background: #764ba2;
+      box-shadow: 0 4px 10px rgba(118, 75, 162, 0.4);
+      outline: none;
+      transform: translateY(-2px);
+    }
+
+    .social-link img {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+    }
+
+    /* 📋 Lists */
+    .lists-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .list-section {
+      background: #f7fafc;
+      padding: 20px;
+      border-left: 4px solid #667eea;
+      border-radius: 12px;
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    ul[data-testid="test-user-hobbies"],
+    ul[data-testid="test-user-dislikes"] {
+      list-style: none;
+    }
+
+    li {
+      position: relative;
+      padding-left: 25px;
+      margin-bottom: 8px;
+      color: #4a5568;
+    }
+
+    .hobbies-section li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #48bb78;
+      font-weight: bold;
+    }
+
+    .dislikes-section li::before {
+      content: "✗";
+      position: absolute;
+      left: 0;
+      color: #e53e3e;
+      font-weight: bold;
+    }
+
+    /* 📱 Responsiveness */
+    @media (min-width: 768px) {
+      article[data-testid="test-profile-card"] {
+        flex-direction: row;
+      }
+
+      .card-header {
+        width: 320px;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .card-body {
+        flex: 1;
+        padding: 40px;
+      }
+
+      .lists-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .avatar {
+        width: 120px;
+        height: 120px;
+      }
+
+      h1[data-testid="test-user-name"] {
+        font-size: 1.5rem;
+      }
+
+      .social-link {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .card-body {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <article data-testid="test-profile-card">
+    <header class="card-header">
+      <div class="avatar-container">
+        <figure>
+          <img
+            src="profile.jpg"
+            alt="Profile picture of Demilade"
+            class="avatar"
+            data-testid="test-user-avatar"
+          />
+        </figure>
+      </div>
+      <h1 data-testid="test-user-name">Demilade Ayeku</h1>
+      <time data-testid="test-user-time" datetime="">Loading...</time>
+    </header>
+
+    <div class="card-body">
+      <section class="bio-section">
+        <p data-testid="test-user-bio">
+          A passionate Full-stack developer and software architect who loves building accessible and
+          user-friendly digital experiences. When not coding, I explore new technologies, contribute
+          to open source, or enjoy coffee while reading tech blogs.
+        </p>
+      </section>
+
+      <section class="social-section">
+        <h2 class="section-title">Connect With Me</h2>
+        <nav aria-label="Social media links">
+          <ul data-testid="test-user-social-links">
+            <li>
+              <a
+                href="https://x.com/CodeCraft390741?t=2ZUE88yQ4Fvqj7HM4PZ6Mw&s=09"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social-link"
+                data-testid="test-user-social-twitter"
+              >
+                <img src="xxx.png" alt="Twitter logo" /> Twitter
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://github.com/Demiladepy"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social-link"
+                data-testid="test-user-social-github"
+              >
+                <img src="downloadithub.png" alt="GitHub logo" /> GitHub
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://linkedin.com/in/demilade-ayeku-b6598b291"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social-link"
+                data-testid="test-user-social-linkedin"
+              >
+                <img src="linkedin.png" alt="LinkedIn logo" /> LinkedIn
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </section>
+
+      <div class="lists-container">
+        <section class="list-section hobbies-section">
+          <h2 class="section-title">Hobbies & Interests</h2>
+          <ul data-testid="test-user-hobbies">
+            <li>Building side projects and open-source tools</li>
+            <li>Reading tech blogs and staying updated</li>
+            <li>Photography and digital art</li>
+            <li>Exploring AI & Web3 technologies</li>
+            <li>Playing guitar and writing music</li>
+          </ul>
+        </section>
+
+        <section class="list-section dislikes-section">
+          <h2 class="section-title">Dislikes</h2>
+          <ul data-testid="test-user-dislikes">
+            <li>Inaccessible websites</li>
+            <li>Spaghetti code without documentation</li>
+            <li>Skipping coffee in the morning</li>
+            <li>Browser compatibility issues</li>
+            <li>Unnecessary meetings that could be emails</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </article>
+
+  <script>
+    // ⏱️ Updates time every second in milliseconds
+    function updateTime() {
+      const timeEl = document.querySelector('[data-testid="test-user-time"]');
+      const now = Date.now();
+      timeEl.textContent = now;
+      timeEl.setAttribute("datetime", new Date(now).toISOString());
+    }
+
+    updateTime();
+    setInterval(updateTime, 1000);
+  </script>
+</body>
+</html>
